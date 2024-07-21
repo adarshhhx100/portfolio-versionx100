@@ -84,7 +84,7 @@ const Skills: React.FC = () => {
             >
               {skill.icon}
               <h3 className="text-2xl font-bold mt-3">{skill.name}</h3>
-              <ul className="font-sans font-medium text-base text-center mt-2">
+              <ul className="font-sans font-medium text-base text-center mt-2 mr-5">
                 {skill.details.map((detail, index) => (
                   <li key={index} className="mt-2 text-sm">
                     {detail}
