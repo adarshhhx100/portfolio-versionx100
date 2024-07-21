@@ -1,10 +1,21 @@
-import React from "react";
-import Avatar from "../assets/avatar.png";
-import ContImg from "../assets/frontend.jpg";
-import Skills from "./Skills";
-import { FaCommentDots } from "react-icons/fa";
+import React, { useState } from 'react';
+import Avatar from '../assets/avatar.png';
+import ContImg from '../assets/frontend.jpg';
+import Skills from './Skills';
+import { FaCommentDots } from 'react-icons/fa';
+import StartConversation from './StartConversation';
 
 const Home: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <section
       id="home"
@@ -14,7 +25,7 @@ const Home: React.FC = () => {
         Software Engineer, Frontend Developer & AI Enthusiast
       </h1>
       <p className="text-2xl sm:text-2xl font-normal leading-relaxed max-w-2xl mx-auto mb-6">
-        I code beautiful interfaces in simple way.
+        I code beautiful interfaces in a simple way.
       </p>
 
       <img
@@ -57,12 +68,17 @@ const Home: React.FC = () => {
         </p>
 
         <div className="flex items-center justify-center mt-4 mb-16">
-          <button className="flex items-center bg-gradient-to-r from-blue-500 to-blue-800 hover:from-blue-600 hover:to-blue-900 text-white text-lg py-2 px-6 rounded-lg shadow-md">
+          <button
+            onClick={handleOpenModal}
+            className="flex items-center bg-gradient-to-r from-blue-500 to-blue-800 hover:from-blue-600 hover:to-blue-900 text-white text-lg py-2 px-6 rounded-lg shadow-md"
+          >
             <FaCommentDots className="w-6 h-6 mr-2" />
             Start a conversation
           </button>
         </div>
       </div>
+
+      {showModal && <StartConversation onClose={handleCloseModal} />}
     </section>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../assets/logo.png';
-import { FaHandPeace } from 'react-icons/fa';
+import { FaGripfire } from 'react-icons/fa';
 
 interface HeaderProps {
   onSayHelloClick: () => void;
@@ -17,8 +17,8 @@ const Header: React.FC<HeaderProps> = ({ onSayHelloClick }) => {
           className="bg-gradient-to-r from-blue-600 to-blue-900 hover:from-cyan-600 hover:to-yellow-400 text-lg py-2 px-6 rounded-lg transition-colors duration-300 flex items-center"
           onClick={onSayHelloClick}
         >
-          <FaHandPeace className="w-6 h-6 mr-2" />
-          Say Hello
+          Say Hello 
+          <FaGripfire className="w-6 h-6 ml-2" />
         </button>
       </nav>
     </header>

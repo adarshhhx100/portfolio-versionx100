@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/HomePage';
-import ContactForm from './components/ContactForm';
+import SayHelloForm from './components/SayHelloForm';
+import SayHelloModal from './components/SayHelloModal';
 import './index.css';
 
 const App: React.FC = () => {
@@ -23,7 +24,11 @@ const App: React.FC = () => {
         <Home />
       </main>
       <Footer />
-      {showContactForm && <ContactForm onClose={handleCloseContactForm} />}
+      {showContactForm && (
+        <SayHelloModal isOpen={showContactForm} onClose={handleCloseContactForm}>
+          <SayHelloForm onClose={handleCloseContactForm} />
+        </SayHelloModal>
+      )}
     </div>
   );
 };
