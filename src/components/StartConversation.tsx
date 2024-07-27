@@ -37,16 +37,18 @@ const StartConversation: React.FC<StartConversationProps> = ({ onClose }) => {
       console.log('Attempting to save data to Firebase...');
       await addFormData(formData);
       console.log('Data successfully saved to the database.');
-      setIsSubmitted(true);
+      setIsFormVisible(false); // Hide the form
+      setIsSubmitted(true); // Show the success message
       setFormData({
         name: '',
         email: '',
         interest: '',
         additionalDetails: '',
       });
+
       setTimeout(() => {
         setIsSubmitted(false);
-        setIsFormVisible(true);
+        onClose(); // Close the modal after showing the success message
       }, 3000);
     } catch (error) {
       console.error('Error saving data:', error);
@@ -64,7 +66,7 @@ const StartConversation: React.FC<StartConversationProps> = ({ onClose }) => {
 
   return (
     <div className="container mx-auto">
-      {isFormVisible && !isSubmitted && (
+      {isFormVisible && (
         <div className="relative bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-auto">
           <button
             onClick={handleClose}
@@ -137,7 +139,7 @@ const StartConversation: React.FC<StartConversationProps> = ({ onClose }) => {
         </div>
       )}
 
-      {isSubmitted && !isFormVisible && (
+      {isSubmitted && (
         <div className="flex flex-col items-center justify-center text-center bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-auto">
           <CheckCircleIcon className="w-16 h-16 text-green-500 mb-4" />
           <h2 className="text-2xl mb-4">Thank You!</h2>
