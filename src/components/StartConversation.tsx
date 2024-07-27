@@ -1,9 +1,12 @@
-// StartConversation.tsx
 import React, { useState } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { addFormData, FormData } from './db/RealtimeDatabaseService';
 
-const StartConversation: React.FC = () => {
+interface StartConversationProps {
+  onClose: () => void;
+}
+
+const StartConversation: React.FC<StartConversationProps> = ({ onClose }) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -12,7 +15,7 @@ const StartConversation: React.FC = () => {
   });
   const [wordCount, setWordCount] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isFormVisible, setIsFormVisible] = useState(true); // Initialize as true to show the form initially
+  const [isFormVisible, setIsFormVisible] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -40,10 +43,10 @@ const StartConversation: React.FC = () => {
         email: '',
         interest: '',
         additionalDetails: '',
-      }); // Clear form fields
+      });
       setTimeout(() => {
         setIsSubmitted(false);
-        setIsFormVisible(true); // Ensure the form can be shown again after a timeout
+        setIsFormVisible(true);
       }, 3000);
     } catch (error) {
       console.error('Error saving data:', error);
@@ -54,16 +57,15 @@ const StartConversation: React.FC = () => {
   };
 
   const handleClose = () => {
-    setIsFormVisible(false); // Hide the form
-    setIsSubmitted(false);   // Ensure success message is not shown
+    setIsFormVisible(false);
+    setIsSubmitted(false);
+    onClose(); // Call the onClose prop function
   };
 
   return (
     <div className="container mx-auto">
-      {/* Show form if form is visible and not submitted */}
       {isFormVisible && !isSubmitted && (
         <div className="relative bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-auto">
-          {/* Red close button to hide the form */}
           <button
             onClick={handleClose}
             className="absolute top-4 right-4 text-red-600 hover:text-red-800 text-3xl font-bold"
@@ -135,7 +137,6 @@ const StartConversation: React.FC = () => {
         </div>
       )}
 
-      {/* Show submission success message if form is submitted */}
       {isSubmitted && !isFormVisible && (
         <div className="flex flex-col items-center justify-center text-center bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-auto">
           <CheckCircleIcon className="w-16 h-16 text-green-500 mb-4" />
