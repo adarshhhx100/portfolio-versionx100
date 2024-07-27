@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/outline'; // Import the success icon
+import { addSayHelloFormData } from './db/RealtimeDatabaseService'; // Import the new function
 
 interface FormData {
   name: string;
@@ -27,21 +28,37 @@ const SayHelloForm: React.FC<ContactFormProps> = ({ onClose }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    setIsSubmitted(true);
 
-    setFormData({
-      name: '',
-      email: '',
-      message: '',
-    });
+    try {
+      // Save data to Firebase Realtime Database in the new collection
+      await addSayHelloFormData({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      });
+      console.log('Data successfully saved to the database.');
+      setIsSubmitted(true);
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      onClose();
-    }, 3000);
+      // Reset form data and close the form after 3 seconds
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
+
+      setTimeout(() => {
+        setIsSubmitted(false);
+        onClose();
+      }, 3000);
+    } catch (error) {
+      console.error('Error saving data:', error);
+      if (error instanceof Error) {
+        console.error('Error message:', error.message);
+      }
+    }
   };
 
   return (

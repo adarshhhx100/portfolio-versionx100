@@ -6,7 +6,10 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-gradient-to-r from-blue-700 to-blue-900 text-white text-center p-20 bottom-0 w-full">
       <div className="flex flex-col items-center">
-        <img src={logo} alt="Logo" className="w-20 h-20 mt-1 mb-18" />
+        <a href="#home">
+          <img src={logo} alt="Logo" className="w-20 h-20 mt-1 mb-18" />
+        </a>
+
         <div className=" max-w-2xl mx-auto my-8 mb-18">
           <h3 className="text-3xl font-semibold text-slate-200 leading-tight text-center">
             Levelling Up through Open Source <br /> & Skill Development.
